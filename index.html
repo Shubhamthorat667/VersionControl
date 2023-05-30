@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Registration</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // empty Array to store registered users
+      var users = [];
+
+      // Event handler for form submission
+      $('form').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get form data from respective id
+        var name = $('#name').val();
+        var email = $('#email').val();
+
+        // Create user object
+        var user = {
+          name: name,
+          email: email
+        };
+
+        // Add user to the array
+        users.push(user);
+
+        // Store the updated array in local storage..
+        localStorage.setItem('users', JSON.stringify(users));
+
+        // Send user data to the server using AJAX
+        $.ajax({
+          url: 'your-server-url', // Replace with your server URL
+          type: 'POST',
+          data: user,
+          success: function(response) {
+            console.log(response); // Handle server response
+          },
+          error: function(error) {
+            console.error(error); // Handle error
+          }
+        });
+
+        // Redirect to the new page
+        window.location.href = 'list.html';
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>User Registration</h1>
+  <form>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br><br>
+    <input type="submit" value="Register">
+  </form>
+</body>
+</html>

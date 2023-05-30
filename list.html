@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User List</title>
+</head>
+<body>
+  <h1>User List</h1>
+  <ul id="user-list"></ul>
+
+  <script>
+    // Retrieve user data from local storage
+    var storedUsers = localStorage.getItem('users');
+    var users = JSON.parse(storedUsers);
+
+    // Display user data in a list
+    var userList = document.getElementById('user-list');
+    for (var i = 0; i < users.length; i++) {
+      var user = users[i];
+      var listItem = document.createElement('li');
+      listItem.textContent = 'Name: ' + user.name + ', Email: ' + user.email;
+      userList.appendChild(listItem);
+    }
+  </script>
+</body>
+</html>
